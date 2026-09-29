@@ -1,0 +1,16 @@
+name: Prueba runner y secret
+on: [push]
+jobs:
+  probar:
+    runs-on: self-hosted
+    steps:
+      - name: Comparar secret con variable local
+        env:
+          TOKEN: ${{ secrets.DEV_TOKEN }}
+        run: |
+          if [ "$TOKEN" = "$LOCAL_DEV_TOKEN" ]; then
+            echo "Coinciden"
+          else
+            echo "No coinciden"
+            exit 1
+          fi
